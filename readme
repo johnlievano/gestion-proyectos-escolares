@@ -1,34 +1,50 @@
-# Sistema de Seguimiento de Proyectos
+# Sistema de Gestión y Seguimiento de Proyectos
 
-Sistema integral para la gestión y evaluación de proyectos. Arquitectura Full-Stack desacoplada orientada a la eficiencia, escalabilidad y rendimiento.
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Google Apps Script](https://img.shields.io/badge/Apps_Script-4285F4?style=for-the-badge&logo=google&logoColor=white)
+
+Sistema integral para la gestión, asignación y evaluación de proyectos. Construido con una arquitectura Full-Stack desacoplada, orientada a la eficiencia, escalabilidad y alto rendimiento, operando bajo un modelo Serverless.
+
+---
 
 ## Arquitectura Técnica
 
-* **Frontend:** HTML5, Tailwind CSS, Vanilla JavaScript. Interfaz responsiva y asíncrona. Despliegue en **Vercel**.
-* **Backend (API):** Google Apps Script. Expone endpoints REST (`doPost`, `doGet`) para la manipulación de datos.
-* **Base de Datos:** Google Sheets. Tablas relacionales para Usuarios, Proyectos, Tareas, Logs y Tokens de recuperación.
-* **Seguridad:** * Cifrado de contraseñas mediante algoritmo SHA-256.
-    * Generación de tokens UUID temporales (caducidad de 1 hora) para recuperación de accesos.
-    * Auditoría de acciones (Logs) por usuario y marca de tiempo.
+* **Frontend:** Construido con HTML5 semántico, **Tailwind CSS** para un diseño moderno y responsivo, y **Vanilla JavaScript** para la manipulación del DOM y peticiones asíncronas. Despliegue continuo gestionado a través de **Vercel**.
+* **Backend (API Serverless):** Desarrollado con **Google Apps Script (GAS)**. Expone endpoints RESTful (`doPost`, `doGet`) para el procesamiento seguro de datos y la comunicación con la interfaz de usuario.
+* **Base de Datos:** Utiliza **Google Sheets** como motor relacional ligero, estructurado en tablas independientes para Usuarios, Proyectos, Tareas, Logs y Tokens de recuperación.
+* **Seguridad Implementada:** 
+  * Cifrado de contraseñas mediante algoritmo **SHA-256**.
+  * Generación de tokens UUID temporales (caducidad de 1 hora) para flujos de recuperación de acceso.
+  * Auditoría de acciones (Logs) por usuario con marcas de tiempo automáticas.
+  * Sanitización de entradas y validación estricta de sesiones.
+
+---
 
 ## Enlaces de Producción
 
-* **Aplicación Web (Vercel):** [https://prueba-tecnica-lilac.vercel.app/](https://prueba-tecnica-lilac.vercel.app/)
-* **Base de Datos (Google Sheets):** [Sistema_Proyectos_DB](https://docs.google.com/spreadsheets/d/13L_Kej7-SSJ4lc-zsBz7sFnYpF7WJzz4Mc5xTSkPqEs/edit?usp=sharing)
-* **API Backend (Apps Script):** [Código de Servidor](https://script.google.com/d/188jamGOYYuPBkC5TDih5sIxPCWxy80EJRwzV7bL4QcBFUh4h2V7sWehC/edit?usp=sharing)
+* **Aplicación Web (Live Demo):** [Ver Proyecto en Vercel](https://gestion-proyectos-escolares.vercel.app/)
+* **Base de Datos & API:** *Por motivos de seguridad e integridad de los datos, los enlaces directos a la hoja de cálculo matriz y al código fuente del backend (Apps Script) se mantienen privados en este repositorio público. La arquitectura detallada de estos componentes está documentada de forma interactiva dentro de la misma aplicación web.*
 
-## Credenciales de Acceso (Entorno de Prueba)
+---
 
-El sistema soporta control de acceso basado en roles (RBAC). Utilice las siguientes credenciales para auditar las vistas condicionales:
+## Credenciales de Acceso (Entorno Demo)
 
-| Rol | Correo Electrónico | Contraseña | Capacidades |
+El sistema soporta Control de Acceso Basado en Roles (RBAC). Se proveen las siguientes credenciales de auditoría para explorar las vistas condicionales y capacidades de cada perfil:
+
+| Rol | Correo Electrónico | Contraseña | Capacidades Principales |
 | :--- | :--- | :--- | :--- |
-| **Administrador** | `john@test.com` | `123456` | Gestión del panel de usuarios y modificación de roles. |
-| **Docente** | `andrea@test.com` | `123456` | Filtrado dinámico, revisión y cambio de estado de proyectos. |
-| **Estudiante** | `juan@test.com` | `123456` | Creación de proyectos y asignación de tareas. |
+| ![Administrador](https://img.shields.io/badge/Administrador-8B5CF6?style=flat-square) | `john@test.com` | `123456` | Gestión total del panel de usuarios y modificación de roles en tiempo real. |
+| ![Docente](https://img.shields.io/badge/Docente-3B82F6?style=flat-square) | `luis@test.com` | `123456` | Filtrado dinámico, revisión, retroalimentación (feedback) y cambio de estado de proyectos. |
+| ![Estudiante](https://img.shields.io/badge/Estudiante-10B981?style=flat-square) | `juan@test.com` | `123456` | Creación de proyectos, selección de docentes evaluadores y gestión de tareas. |
+
+---
 
 ## Ejecución Local
 
+Para inicializar este proyecto en un entorno de desarrollo local:
+
 1. Clonar el repositorio:
    ```bash
-   git clone [https://github.com/johnlievano/Prueba-Tecnica.git](https://github.com/johnlievano/Prueba-Tecnica.git)
+   git clone [https://github.com/johnlievano/gestion-proyectos-escolares.git](https://github.com/johnlievano/gestion-proyectos-escolares.git)
