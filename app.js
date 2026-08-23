@@ -40,12 +40,16 @@ const loginForm = document.getElementById("loginForm");
 if (loginForm) {
   const loginMessage = document.getElementById("loginMessage");
   const loginBtn = document.getElementById("loginBtn");
+  
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value;
+    
+    // 1. Mostrar estado de carga en el botón y ocultar el div de mensaje
     setLoading(true, loginBtn);
-    showMessage("Validando...", "blue", loginMessage);
+    loginMessage.classList.add("hidden"); 
+
     try {
       const response = await fetch(API_URL, {
         method: "POST",
@@ -53,6 +57,7 @@ if (loginForm) {
         body: JSON.stringify({ action: "login", data: { email, password } }),
       });
       const result = await response.json();
+      
       if (result.success) {
         localStorage.setItem("user", JSON.stringify(result.user));
         showMessage(
@@ -64,17 +69,18 @@ if (loginForm) {
           window.location.href = "dashboard.html";
         }, 1000);
       } else {
+        // 2. Si hay error, regresamos el botón a la normalidad y mostramos el error
+        setLoading(false, loginBtn);
         showMessage(
           result.message || "Credenciales incorrectas.",
           "red",
           loginMessage,
         );
-        setLoading(false, loginBtn);
       }
     } catch (error) {
       console.error("Error en login:", error);
-      showMessage("Error de conexión con el servidor.", "red", loginMessage);
       setLoading(false, loginBtn);
+      showMessage("Error de conexión con el servidor.", "red", loginMessage);
     }
   });
 }
@@ -86,12 +92,14 @@ const registroForm = document.getElementById("registroForm");
 if (registroForm) {
   const registroMessage = document.getElementById("registroMessage");
   const registroBtn = document.getElementById("registroBtn");
+  
   registroForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("regName").value.trim();
     const email = document.getElementById("regEmail").value.trim();
     const password = document.getElementById("regPassword").value;
     const confirm = document.getElementById("regConfirm").value;
+    
     if (password !== confirm) {
       showMessage("Las contraseñas no coinciden", "red", registroMessage);
       return;
@@ -104,8 +112,11 @@ if (registroForm) {
       );
       return;
     }
+    
+    // 1. Mostrar estado de carga en el botón y ocultar el div de mensaje
     setLoading(true, registroBtn);
-    showMessage("Creando cuenta...", "blue", registroMessage);
+    registroMessage.classList.add("hidden");
+
     try {
       const response = await fetch(API_URL, {
         method: "POST",
@@ -116,6 +127,7 @@ if (registroForm) {
         }),
       });
       const result = await response.json();
+      
       if (result.success) {
         showMessage(
           "¡Cuenta creada! Redirigiendo al login...",
@@ -127,17 +139,18 @@ if (registroForm) {
           registroForm.reset();
         }, 2000);
       } else {
+        // 2. Si hay error, regresamos el botón a la normalidad y mostramos el error
+        setLoading(false, registroBtn);
         showMessage(
           result.message || "Error al crear cuenta",
           "red",
           registroMessage,
         );
-        setLoading(false, registroBtn);
       }
     } catch (error) {
       console.error("Error en registro:", error);
-      showMessage("Error de conexión", "red", registroMessage);
       setLoading(false, registroBtn);
+      showMessage("Error de conexión", "red", registroMessage);
     }
   });
 }
@@ -641,13 +654,13 @@ if (gridProyectos) {
                 ? "bg-blue-100 text-blue-800"
                 : "bg-green-100 text-green-800";
           return `
-            <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors">
-              <td class="py-3 px-2 sm:px-4 text-left whitespace-nowrap font-medium text-gray-800 text-sm sm:text-base">${u.name}</td>
-              <td class="py-3 px-2 sm:px-4 text-left truncate max-w-[120px] sm:max-w-[200px] text-sm sm:text-base" title="${u.email}">${u.email}</td>
-              <td class="py-3 px-2 sm:px-4 text-left">
+            <tr class="border-b border-gray-200 odd:bg-white even:bg-gray-50/70 hover:bg-indigo-50/50 transition-colors">
+              <td class="py-3 px-4 sm:px-6 text-left whitespace-nowrap font-medium text-gray-800 text-sm sm:text-base">${u.name}</td>
+              <td class="py-3 px-4 sm:px-6 text-left truncate max-w-[120px] sm:max-w-[200px] text-sm sm:text-base" title="${u.email}">${u.email}</td>
+              <td class="py-3 px-4 sm:px-6 text-left">
                 <span class="py-1 px-2 sm:px-3 rounded-full text-[10px] sm:text-xs font-bold uppercase ${bgRole}">${u.role}</span>
               </td>
-              <td class="py-3 px-2 sm:px-4 text-center">
+              <td class="py-3 px-4 sm:px-6 text-center">
                 <select onchange="cambiarRolUsuario('${u.id}', this.value)" class="w-full min-w-[90px] max-w-[120px] border border-gray-300 rounded px-1 sm:px-2 py-1 text-xs sm:text-sm focus:ring-2 focus:ring-purple-500 cursor-pointer bg-white">
                   <option value="" disabled selected>Cambiar</option>
                   <option value="student">Estudiante</option>

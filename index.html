@@ -1,266 +1,364 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Sistema de Seguimiento</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acceso - Gestión de Proyectos</title>
+
+    <!-- Favicon SVG en línea (Carga sin depender de imágenes externas) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'></rect><line x1='16' y1='2' x2='16' y2='6'></line><line x1='8' y1='2' x2='8' y2='6'></line><line x1='3' y1='10' x2='21' y2='10'></line><path d='M9 16l2 2 4-4'></path></svg>">
+
+    <!-- 1. Estilos locales de Tailwind/CSS (Para que cargue sin internet) -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- 2. CDN de respaldo de Tailwind (Solo si tienes conexión) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        
-        .glass-panel {
-            background: #ffffff;
-            border: 1px solid #f1f5f9;
-        }
-        
-        /* Animaciones para transiciones suaves */
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        .fade-out { animation: fadeOut 0.3s ease-in forwards; }
-        
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(10px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-        @keyframes fadeOut { 
-            from { opacity: 1; transform: translateY(0); } 
-            to { opacity: 0; transform: translateY(-10px); } 
-        }
+      body {
+        font-family: "Inter", sans-serif;
+      }
 
-        /* Utilidad para ocultar sin romper animaciones inmediatamente */
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-            opacity: 0;
-            pointer-events: none;
-        }
+      .glass-panel {
+        background: #ffffff;
+        border: 1px solid #f1f5f9;
+      }
 
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
+      /* Animaciones para transiciones suaves */
+      .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+      .fade-out { animation: fadeOut 0.3s ease-in forwards; }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-10px); }
+      }
+
+      /* Utilidad para ocultar sin romper animaciones inmediatamente */
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* Ocultar barra de scroll visualmente en toda la página */
+      html, body {
+        -ms-overflow-style: none;  /* Para Internet Explorer y Edge */
+        scrollbar-width: none;  /* Para Firefox */
+      }
+      
+      html::-webkit-scrollbar, body::-webkit-scrollbar {
+        display: none; /* Para Chrome, Safari y Opera */
+      }
     </style>
-</head>
-<body class="bg-gray-50 min-h-screen lg:h-screen lg:overflow-hidden flex items-center justify-center p-4">
+  </head>
+  
+  <!-- Se reemplazó h-screen y overflow-hidden por padding vertical para permitir scroll en pantallas pequeñas -->
+  <body class="bg-gray-50 h-screen overflow-hidden flex items-center justify-center p-4">
+    <div class="relative z-10 w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-start">
+      
+      <!-- ================= PANEL IZQUIERDO ================= -->
+      <div class="glass-panel rounded-2xl shadow-xl p-6 lg:p-8 fade-in w-full max-w-md mx-auto relative">
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800 mb-1">
+            Gestión de Proyectos
+          </h2>
+          <p class="text-sm text-gray-600 mb-5">
+            Sistema para crear, asignar y hacer seguimiento a proyectos entre
+            estudiantes, docentes y administradores. Usa estas credenciales de
+            ejemplo para probar cada rol.
+          </p>
 
-    <div class="relative z-10 w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center">
-        
-        <div class="glass-panel rounded-2xl shadow-xl p-6 lg:p-8 flex flex-col h-full justify-between fade-in">
-            <div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-1">Prueba Técnica</h2>
-                <p class="text-sm text-gray-600 mb-5">Sistema de seguimiento de proyectos. Utilice estas credenciales para validar los roles.</p>
-
-                <div class="space-y-3 mb-6">
-                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:bg-white transition flex justify-between items-center group shadow-sm">
-                        <div>
-                            <p class="text-[10px] font-bold text-purple-600 uppercase tracking-wide">Administrador</p>
-                            <p class="text-sm text-gray-800 font-semibold leading-none mt-1">john@test.com</p>
-                            <p class="text-xs text-gray-500 mt-1">Clave: 123456</p>
-                        </div>
-                        <button onclick="copiarCredenciales('john@test.com', '123456', this)" class="p-1.5 bg-purple-100 text-purple-600 rounded hover:bg-purple-200 transition opacity-0 group-hover:opacity-100 focus:opacity-100" title="Copiar e ingresar">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                        </button>
-                    </div>
-
-                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:bg-white transition flex justify-between items-center group shadow-sm">
-                        <div>
-                            <p class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Docente</p>
-                            <p class="text-sm text-gray-800 font-semibold leading-none mt-1">luis@test.com</p>
-                            <p class="text-xs text-gray-500 mt-1">Clave: 123456</p>
-                        </div>
-                        <button onclick="copiarCredenciales('luis@test.com', '123456', this)" class="p-1.5 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition opacity-0 group-hover:opacity-100 focus:opacity-100" title="Copiar e ingresar">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                        </button>
-                    </div>
-
-                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:bg-white transition flex justify-between items-center group shadow-sm">
-                        <div>
-                            <p class="text-[10px] font-bold text-green-600 uppercase tracking-wide">Estudiante</p>
-                            <p class="text-sm text-gray-800 font-semibold leading-none mt-1">juan@test.com</p>
-                            <p class="text-xs text-gray-500 mt-1">Clave: 123456</p>
-                        </div>
-                        <button onclick="copiarCredenciales('juan@test.com', '123456', this)" class="p-1.5 bg-green-100 text-green-600 rounded hover:bg-green-200 transition opacity-0 group-hover:opacity-100 focus:opacity-100" title="Copiar e ingresar">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                        </button>
-                    </div>
-                </div>
+          <div class="space-y-3 mb-6">
+            <!-- Credencial Administrador -->
+            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:bg-white transition flex justify-between items-center group shadow-sm">
+              <div>
+                <p class="text-[10px] font-bold text-purple-600 uppercase tracking-wide">Administrador</p>
+                <p class="text-sm text-gray-800 font-semibold leading-none mt-1">john@test.com</p>
+                <p class="text-xs text-gray-500 mt-1">Clave: 123456</p>
+              </div>
+              <button onclick="copiarCredenciales('john@test.com', '123456', this)" class="p-1.5 bg-purple-100 text-purple-600 rounded hover:bg-purple-200 transition opacity-0 group-hover:opacity-100 focus:opacity-100" title="Copiar e ingresar">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+              </button>
             </div>
 
-            <div>
-                <p class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Recursos del Proyecto</p>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <a href="https://github.com/johnlievano/Prueba-Tecnica" target="_blank" class="flex items-center gap-2 px-3 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition shadow-sm">
-                        <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                        <span class="text-xs font-semibold truncate">Repositorio</span>
-                    </a>
-                    <a href="https://docs.google.com/spreadsheets/d/13L_Kej7-SSJ4lc-zsBz7sFnYpF7WJzz4Mc5xTSkPqEs/edit?usp=sharing" target="_blank" class="flex items-center gap-2 px-3 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg hover:bg-green-100 transition shadow-sm">
-                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
-                        <span class="text-xs font-semibold truncate">Base de Datos</span>
-                    </a>
-                    <a href="https://script.google.com/d/188jamGOYYuPBkC5TDih5sIxPCWxy80EJRwzV7bL4QcBFUh4h2V7sWehC/edit?usp=sharing" target="_blank" class="flex items-center gap-2 px-3 py-2 bg-blue-50 text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-100 transition shadow-sm">
-                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
-                        <span class="text-xs font-semibold truncate">API Backend</span>
-                    </a>
-                </div>
+            <!-- Credencial Docente -->
+            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:bg-white transition flex justify-between items-center group shadow-sm">
+              <div>
+                <p class="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Docente</p>
+                <p class="text-sm text-gray-800 font-semibold leading-none mt-1">luis@test.com</p>
+                <p class="text-xs text-gray-500 mt-1">Clave: 123456</p>
+              </div>
+              <button onclick="copiarCredenciales('luis@test.com', '123456', this)" class="p-1.5 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition opacity-0 group-hover:opacity-100 focus:opacity-100" title="Copiar e ingresar">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+              </button>
             </div>
+
+            <!-- Credencial Estudiante -->
+            <div class="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:bg-white transition flex justify-between items-center group shadow-sm">
+              <div>
+                <p class="text-[10px] font-bold text-green-600 uppercase tracking-wide">Estudiante</p>
+                <p class="text-sm text-gray-800 font-semibold leading-none mt-1">juan@test.com</p>
+                <p class="text-xs text-gray-500 mt-1">Clave: 123456</p>
+              </div>
+              <button onclick="copiarCredenciales('juan@test.com', '123456', this)" class="p-1.5 bg-green-100 text-green-600 rounded hover:bg-green-200 transition opacity-0 group-hover:opacity-100 focus:opacity-100" title="Copiar e ingresar">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div class="glass-panel rounded-2xl shadow-xl p-6 lg:p-8 fade-in w-full max-w-md mx-auto relative overflow-hidden">
-            
-            <div class="text-center mb-6 relative z-10">
-                <h2 class="text-2xl font-bold text-gray-800">Acceso</h2>
-            </div>
-
-            <div class="flex border-b border-gray-200 mb-5 relative z-10">
-                <button id="tabLogin" class="flex-1 pb-2 text-sm text-center font-bold text-blue-600 border-b-2 border-blue-600 transition duration-300">Iniciar Sesión</button>
-                <button id="tabRegistro" class="flex-1 pb-2 text-sm text-center font-bold text-gray-400 hover:text-gray-600 border-b-2 border-transparent transition duration-300">Registrarse</button>
-            </div>
-
-            <div class="relative min-h-[380px]">
-                
-                <div id="loginFormContainer" class="absolute w-full top-0 left-0 transition-all duration-300 fade-in">
-                    <form id="loginForm" class="space-y-4">
-                        <div>
-                            <label for="loginEmail" class="block text-xs font-bold text-gray-600 uppercase mb-1">Correo electrónico</label>
-                            <input type="email" id="loginEmail" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition bg-white text-sm"
-                                placeholder="ejemplo@correo.com">
-                        </div>
-                        <div>
-                            <label for="loginPassword" class="block text-xs font-bold text-gray-600 uppercase mb-1">Contraseña</label>
-                            <input type="password" id="loginPassword" required
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition bg-white text-sm"
-                                placeholder="••••••••">
-                        </div>
-                        <div class="text-right">
-                            <a href="#" id="forgotPasswordLink" class="text-xs font-medium text-blue-600 hover:underline transition">¿Olvidaste tu contraseña?</a>
-                        </div>
-                        <button type="submit" id="loginBtn"
-                            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg transition duration-200 shadow-sm text-sm mt-2">
-                            Ingresar
-                        </button>
-                        <div id="loginMessage" class="text-center text-xs font-bold hidden mt-2"></div>
-                    </form>
-                </div>
-
-                <div id="registroFormContainer" class="absolute w-full top-0 left-0 transition-all duration-300 visually-hidden">
-                    <form id="registroForm" class="space-y-3">
-                        <div>
-                            <label for="regName" class="block text-xs font-bold text-gray-600 uppercase mb-1">Nombre completo</label>
-                            <input type="text" id="regName" required placeholder="Ej. Juan Pérez" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white text-sm">
-                        </div>
-                        <div>
-                            <label for="regEmail" class="block text-xs font-bold text-gray-600 uppercase mb-1">Correo electrónico</label>
-                            <input type="email" id="regEmail" required placeholder="ejemplo@correo.com" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white text-sm">
-                        </div>
-                        <div>
-                            <label for="regPassword" class="block text-xs font-bold text-gray-600 uppercase mb-1">Contraseña</label>
-                            <input type="password" id="regPassword" required minlength="6" placeholder="Mínimo 6 caracteres" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white text-sm">
-                        </div>
-                        <div>
-                            <label for="regConfirm" class="block text-xs font-bold text-gray-600 uppercase mb-1">Confirmar contraseña</label>
-                            <input type="password" id="regConfirm" required placeholder="Repite tu contraseña" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white text-sm">
-                        </div>
-                        <button type="submit" id="registroBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-4 rounded-lg transition duration-200 shadow-sm mt-3 text-sm">
-                            Crear cuenta
-                        </button>
-                        <div id="registroMessage" class="text-center text-xs font-bold hidden mt-2"></div>
-                    </form>
-                </div>
-            </div>
+        <div>
+          <p class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Recursos del Proyecto</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <!-- Github -->
+            <a href="https://github.com/johnlievano/Prueba-Tecnica" target="_blank" class="flex items-center gap-2 px-3 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition shadow-sm w-full">
+              <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              <span class="text-xs font-semibold truncate">Repositorio</span>
+            </a>
+            <!-- Modal Base de Datos -->
+            <button onclick="mostrarInfoDocs('db')" class="flex items-center gap-2 px-3 py-2 bg-green-50 text-green-700 border border-green-200 rounded-lg hover:bg-green-100 transition shadow-sm w-full text-left">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+              <span class="text-xs font-semibold truncate">Base de Datos</span>
+            </button>
+            <!-- Modal API Backend -->
+            <button onclick="mostrarInfoDocs('api')" class="flex items-center gap-2 px-3 py-2 bg-blue-50 text-blue-700 border border-blue-200 rounded-lg hover:bg-blue-100 transition shadow-sm w-full text-left">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+              <span class="text-xs font-semibold truncate">API Backend</span>
+            </button>
+          </div>
         </div>
+      </div>
+
+      <!-- ================= PANEL DERECHO ================= -->
+      <div class="glass-panel rounded-2xl shadow-xl p-6 lg:p-8 fade-in w-full max-w-md mx-auto relative">
+        <div class="text-center mb-6 relative z-10">
+          <h2 class="text-2xl font-bold text-gray-800">Acceso</h2>
+        </div>
+
+        <div class="flex border-b border-gray-200 mb-5 relative z-10">
+          <button id="tabLogin" class="flex-1 pb-2 text-sm text-center font-bold text-blue-600 border-b-2 border-blue-600 transition duration-300">
+            Iniciar Sesión
+          </button>
+          <button id="tabRegistro" class="flex-1 pb-2 text-sm text-center font-bold text-gray-400 hover:text-gray-600 border-b-2 border-transparent transition duration-300">
+            Registrarse
+          </button>
+        </div>
+
+        <div id="formsWrapper" class="grid">
+          <!-- FORMULARIO DE LOGIN -->
+          <div id="loginFormContainer" class="col-start-1 row-start-1 transition-opacity duration-300 fade-in">
+            <form id="loginForm" class="space-y-4">
+              <div>
+                <label for="loginEmail" class="block text-xs font-bold text-gray-600 uppercase mb-1">Correo electrónico</label>
+                <input type="email" id="loginEmail" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition bg-white text-sm" placeholder="ejemplo@correo.com" />
+              </div>
+              <div>
+                <label for="loginPassword" class="block text-xs font-bold text-gray-600 uppercase mb-1">Contraseña</label>
+                <input type="password" id="loginPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition bg-white text-sm" placeholder="••••••••" />
+              </div>
+              <div class="text-right">
+                <a href="#" id="forgotPasswordLink" class="text-xs font-medium text-blue-600 hover:underline transition">¿Olvidaste tu contraseña?</a>
+              </div>
+              <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg transition duration-200 shadow-sm text-sm mt-2">
+                Ingresar
+              </button>
+              <div id="loginMessage" class="text-center text-xs font-bold hidden mt-2"></div>
+            </form>
+          </div>
+
+          <!-- FORMULARIO DE REGISTRO -->
+          <div id="registroFormContainer" class="col-start-1 row-start-1 transition-opacity duration-300 opacity-0 invisible pointer-events-none">
+            <form id="registroForm" class="space-y-3">
+              <div>
+                <label for="regName" class="block text-xs font-bold text-gray-600 uppercase mb-1">Nombre completo</label>
+                <input type="text" id="regName" required placeholder="Ej. Juan Pérez" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white text-sm" />
+              </div>
+              <div>
+                <label for="regEmail" class="block text-xs font-bold text-gray-600 uppercase mb-1">Correo electrónico</label>
+                <input type="email" id="regEmail" required placeholder="ejemplo@correo.com" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white text-sm" />
+              </div>
+              <div>
+                <label for="regPassword" class="block text-xs font-bold text-gray-600 uppercase mb-1">Contraseña</label>
+                <input type="password" id="regPassword" required minlength="6" placeholder="Mínimo 6 caracteres" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white text-sm" />
+              </div>
+              <div>
+                <label for="regConfirm" class="block text-xs font-bold text-gray-600 uppercase mb-1">Confirmar contraseña</label>
+                <input type="password" id="regConfirm" required placeholder="Repite tu contraseña" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition bg-white text-sm" />
+              </div>
+              <button type="submit" id="registroBtn" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-4 rounded-lg transition duration-200 shadow-sm mt-3 text-sm">
+                Crear cuenta
+              </button>
+              <div id="registroMessage" class="text-center text-xs font-bold hidden mt-2"></div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <!-- ================= MODAL RECUPERAR CONTRASEÑA ================= -->
     <div id="forgotModal" class="fixed inset-0 bg-gray-900 bg-opacity-40 flex items-center justify-center hidden z-50 backdrop-blur-sm p-4">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 fade-in">
-            <h3 class="text-lg font-bold text-gray-800 mb-1">Recuperar contraseña</h3>
-            <p class="text-xs text-gray-500 mb-5">Ingresa tu correo y te enviaremos un enlace temporal.</p>
-            <form id="forgotForm">
-                <input type="email" id="forgotEmail" required placeholder="tu@correo.com"
-                    class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none mb-4 text-sm">
-                <div class="flex justify-end space-x-2">
-                    <button type="button" onclick="cerrarForgotModal()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition text-sm font-medium">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-sm text-sm font-medium">Enviar enlace</button>
-                </div>
-            </form>
-            <div id="forgotMessage" class="text-center text-xs font-bold hidden mt-4"></div>
+      <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 fade-in">
+        <h3 class="text-lg font-bold text-gray-800 mb-1">Recuperar contraseña</h3>
+        <p class="text-xs text-gray-500 mb-5">Ingresa tu correo y te enviaremos un enlace temporal.</p>
+        <form id="forgotForm">
+          <input type="email" id="forgotEmail" required placeholder="tu@correo.com" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none mb-4 text-sm" />
+          <div class="flex justify-end space-x-2">
+            <button type="button" onclick="cerrarForgotModal()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition text-sm font-medium">Cancelar</button>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-sm text-sm font-medium">Enviar enlace</button>
+          </div>
+        </form>
+        <div id="forgotMessage" class="text-center text-xs font-bold hidden mt-4"></div>
+      </div>
+    </div>
+
+    <!-- ================= MODAL DOCUMENTACIÓN ================= -->
+    <div id="docsModal" class="fixed inset-0 bg-gray-900 bg-opacity-40 flex items-center justify-center hidden z-50 backdrop-blur-sm p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 fade-in relative">
+            <button onclick="cerrarDocsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="flex items-center gap-3 mb-4 border-b pb-3 border-gray-100">
+                <div id="docsIcon" class="p-2 rounded-lg shrink-0"></div>
+                <h3 id="docsTitle" class="text-lg font-bold text-gray-800 leading-tight"></h3>
+            </div>
+            <div id="docsContent" class="text-sm text-gray-600 space-y-3"></div>
+            <div class="mt-6">
+                <button onclick="cerrarDocsModal()" class="w-full py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition shadow-sm text-sm font-medium">Entendido</button>
+            </div>
         </div>
     </div>
 
     <script src="app.js"></script>
     <script>
-        function copiarCredenciales(email, pass, btnElement) {
-            const tempInput = document.createElement('textarea');
-            tempInput.value = email;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
+      // 1. Botones de copiado de credenciales
+      function copiarCredenciales(email, pass, btnElement) {
+        const tempInput = document.createElement("textarea");
+        tempInput.value = email;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
 
-            const originalHTML = btnElement.innerHTML;
-            btnElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>`;
-            setTimeout(() => { btnElement.innerHTML = originalHTML; }, 1500);
-            
-            document.getElementById('loginEmail').value = email;
-            document.getElementById('loginPassword').value = pass;
-            
-            tabLogin.click(); 
+        const originalHTML = btnElement.innerHTML;
+        btnElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>`;
+        setTimeout(() => {
+          btnElement.innerHTML = originalHTML;
+        }, 1500);
+
+        document.getElementById("loginEmail").value = email;
+        document.getElementById("loginPassword").value = pass;
+
+        tabLogin.click();
+      }
+
+      // 2. Cambio de Pestañas (Login / Registro)
+      const tabLogin = document.getElementById("tabLogin");
+      const tabRegistro = document.getElementById("tabRegistro");
+      const loginContainer = document.getElementById("loginFormContainer");
+      const registroContainer = document.getElementById("registroFormContainer");
+
+      function switchTab(activeTab, inactiveTab, showContainer, hideContainer) {
+        activeTab.classList.replace("text-gray-400", "text-blue-600");
+        activeTab.classList.replace("border-transparent", "border-blue-600");
+        inactiveTab.classList.replace("text-blue-600", "text-gray-400");
+        inactiveTab.classList.replace("border-blue-600", "border-transparent");
+
+        hideContainer.classList.remove("fade-in");
+        hideContainer.classList.add("fade-out");
+
+        setTimeout(() => {
+          hideContainer.classList.remove("fade-out");
+          hideContainer.classList.add("invisible", "pointer-events-none", "opacity-0");
+
+          showContainer.classList.remove("invisible", "pointer-events-none", "opacity-0");
+          showContainer.classList.add("fade-in");
+        }, 300);
+      }
+
+      tabLogin.addEventListener("click", () => {
+        if (!loginContainer.classList.contains("fade-in")) {
+          switchTab(tabLogin, tabRegistro, loginContainer, registroContainer);
         }
+      });
 
-        const tabLogin = document.getElementById('tabLogin');
-        const tabRegistro = document.getElementById('tabRegistro');
-        const loginContainer = document.getElementById('loginFormContainer');
-        const registroContainer = document.getElementById('registroFormContainer');
-
-        function switchTab(activeTab, inactiveTab, showContainer, hideContainer) {
-            activeTab.classList.replace('text-gray-400', 'text-blue-600');
-            activeTab.classList.replace('border-transparent', 'border-blue-600');
-            inactiveTab.classList.replace('text-blue-600', 'text-gray-400');
-            inactiveTab.classList.replace('border-blue-600', 'border-transparent');
-
-            hideContainer.classList.remove('fade-in');
-            hideContainer.classList.add('fade-out');
-            
-            setTimeout(() => {
-                hideContainer.classList.add('visually-hidden');
-                
-                showContainer.classList.remove('visually-hidden', 'fade-out');
-                showContainer.classList.add('fade-in');
-            }, 300);
+      tabRegistro.addEventListener("click", () => {
+        if (!registroContainer.classList.contains("fade-in")) {
+          switchTab(tabRegistro, tabLogin, registroContainer, loginContainer);
         }
+      });
 
-        tabLogin.addEventListener('click', () => {
-            if (!loginContainer.classList.contains('fade-in')) {
-                switchTab(tabLogin, tabRegistro, loginContainer, registroContainer);
-            }
-        });
+      // 3. Modal Olvidé mi contraseña
+      const forgotLink = document.getElementById("forgotPasswordLink");
+      const forgotModal = document.getElementById("forgotModal");
 
-        tabRegistro.addEventListener('click', () => {
-            if (!registroContainer.classList.contains('fade-in')) {
-                switchTab(tabRegistro, tabLogin, registroContainer, loginContainer);
-            }
-        });
+      forgotLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        forgotModal.classList.remove("hidden");
+      });
 
-        const forgotLink = document.getElementById('forgotPasswordLink');
-        const forgotModal = document.getElementById('forgotModal');
-        
-        forgotLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            forgotModal.classList.remove('hidden');
-        });
+      window.cerrarForgotModal = function () {
+        forgotModal.classList.add("hidden");
+        document.getElementById("forgotForm").reset();
+        document.getElementById("forgotMessage").classList.add("hidden");
+      };
 
-        window.cerrarForgotModal = function() {
-            forgotModal.classList.add('hidden');
-            document.getElementById('forgotForm').reset();
-            document.getElementById('forgotMessage').classList.add('hidden');
-        };
+      forgotModal.addEventListener("click", (e) => {
+        if (e.target === forgotModal) cerrarForgotModal();
+      });
 
-        forgotModal.addEventListener('click', (e) => {
-            if (e.target === forgotModal) cerrarForgotModal();
-        });
+      // 4. Modal Documentación Seguridad (DB y API)
+      function mostrarInfoDocs(tipo) {
+        const modal = document.getElementById('docsModal');
+        const title = document.getElementById('docsTitle');
+        const content = document.getElementById('docsContent');
+        const icon = document.getElementById('docsIcon');
+
+        if (tipo === 'db') {
+          title.innerText = 'Arquitectura de Base de Datos';
+          icon.className = 'p-2 rounded-lg bg-green-100 text-green-600';
+          icon.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>`;
+          content.innerHTML = `
+            <p>El sistema utiliza <strong>Google Sheets</strong> como una base de datos relacional ligera y eficiente.</p>
+            <ul class="list-disc pl-5 space-y-2 mt-2">
+              <li><strong>Usuarios:</strong> Almacena credenciales, roles (Admin, Docente, Estudiante).</li>
+              <li><strong>Proyectos:</strong> Relaciona el ID del estudiante y del docente asignado, manejando estados (Borrador, Aprobado, Rechazado) y feedback.</li>
+              <li><strong>Tareas:</strong> Vinculadas mediante llaves foráneas (ProjectID) para el control de entregables.</li>
+            </ul>
+            <p class="mt-4 text-xs text-gray-500 bg-gray-50 p-2 rounded border border-gray-100"><span class="font-bold">Nota de Seguridad:</span> Por privacidad, el enlace directo a la hoja de cálculo matriz no está expuesto públicamente.</p>
+          `;
+        } else {
+          title.innerText = 'Arquitectura del API Backend';
+          icon.className = 'p-2 rounded-lg bg-blue-100 text-blue-600';
+          icon.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>`;
+          content.innerHTML = `
+            <p>El backend está construido de forma <em>serverless</em> utilizando <strong>Google Apps Script (GAS)</strong> escrito en JavaScript.</p>
+            <ul class="list-disc pl-5 space-y-2 mt-2">
+              <li><strong>Endpoints:</strong> Expone la función <code>doPost()</code> para procesar solicitudes mediante JSON (Login, Crear Proyecto, Cambiar Estados, etc).</li>
+              <li><strong>Seguridad:</strong> Valida sesiones y sanitiza las entradas antes de inyectarlas en la base de datos.</li>
+              <li><strong>Automatización:</strong> Maneja lógica de triggers como correos y filtrado de relaciones de bases de datos.</li>
+            </ul>
+            <p class="mt-4 text-xs text-gray-500 bg-gray-50 p-2 rounded border border-gray-100"><span class="font-bold">Nota de Seguridad:</span> El código fuente del backend está protegido. Puedes analizar los fetch y peticiones en el repositorio de GitHub.</p>
+          `;
+        }
+        modal.classList.remove('hidden');
+      }
+
+      function cerrarDocsModal() {
+        document.getElementById('docsModal').classList.add('hidden');
+      }
     </script>
-</body>
+  </body>
 </html>
